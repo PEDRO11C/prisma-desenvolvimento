@@ -61,6 +61,16 @@ section { padding:88px 0; border-top:1px solid rgba(255,255,255,.08); }
 .service-number { color:#858D99; font-size:11px; letter-spacing:.15em; }
 .service h3 { font-size:21px; margin:34px 0 10px; letter-spacing:-.035em; }
 .service p { color:#A6ABB4; font-size:13px; line-height:1.7; margin:0; }
+.pricing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.price-card { background:linear-gradient(145deg,#1B1E23,#14161A); border:1px solid #3A3F48; border-radius:13px; padding:27px; display:flex; flex-direction:column; }
+.price-card.featured { border-color:#AAB1BC; }
+.price-card h3 { font-size:21px; margin:10px 0; }
+.price { font-size:38px; font-weight:750; letter-spacing:-.06em; margin:12px 0; }
+.price small { font-size:12px; color:var(--muted); font-weight:500; letter-spacing:0; }
+.price-card p, .price-card li { color:#A6ABB4; font-size:13px; line-height:1.7; }
+.price-card ul { padding-left:18px; margin:10px 0 22px; flex:1; }
+.price-card .button { margin-top:auto; }
+.pricing-note { color:#9299A4; font-size:12px; line-height:1.7; margin-top:22px; }
 .projects { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
 .project { border:1px solid #30343B; border-radius:calc(13px * var(--site-radius-scale)); overflow:hidden; background:#15171B; }
 .project-art { min-height:230px; padding:25px; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#252A32,#111317); }
@@ -87,7 +97,7 @@ section { padding:88px 0; border-top:1px solid rgba(255,255,255,.08); }
 .contact-panel p { color:#C0C4CB; max-width:500px; line-height:1.7; font-size:14px; margin:0; }
 footer { padding:28px 0; border-top:1px solid rgba(255,255,255,.08); color:#838A95; font-size:11px; }
 .footer-inner { display:flex; align-items:center; justify-content:space-between; gap:20px; }
-@media (max-width:760px) { .links { display:none; } .hero { padding:80px 0 72px; } section { padding:68px 0; } .section-head { display:block; } .section-head p { margin-top:17px; } .services { grid-template-columns:1fr; } .projects { grid-template-columns:1fr; } .process { grid-template-columns:1fr 1fr; row-gap:30px; } .contact-panel { display:block; padding:30px; } .contact-panel .button { margin-top:24px; } }
+@media (max-width:760px) { .links { display:none; } .pricing { grid-template-columns:1fr; } .hero { padding:80px 0 72px; } section { padding:68px 0; } .section-head { display:block; } .section-head p { margin-top:17px; } .services { grid-template-columns:1fr; } .projects { grid-template-columns:1fr; } .process { grid-template-columns:1fr 1fr; row-gap:30px; } .contact-panel { display:block; padding:30px; } .contact-panel .button { margin-top:24px; } }
 @media (max-width:430px) { .container { width:min(100% - 32px,1120px); } .nav-cta { padding:11px 12px; font-size:11px; } .process { grid-template-columns:1fr; } .hero-actions .button { width:100%; } .footer-inner { display:block; line-height:2; } }
 </style>
 </head>
@@ -96,7 +106,7 @@ footer { padding:28px 0; border-top:1px solid rgba(255,255,255,.08); color:#838A
 <header>
   <div class="container nav">
     <a class="brand" href="#inicio" aria-label="Prisma Desenvolvimento, início"><span class="logo">P.</span><span>PRISMA<small>DESENVOLVIMENTO</small></span></a>
-    <nav class="links" aria-label="Navegação principal"><a href="#servicos">Serviços</a><a href="#projetos">Projetos</a><a href="#processo">Como trabalhamos</a></nav>
+    <nav class="links" aria-label="Navegação principal"><a href="#servicos">Serviços</a><a href="#planos">Planos e preços</a><a href="#projetos">Projetos</a><a href="#processo">Como trabalhamos</a></nav>
     <a class="nav-cta" href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a>
   </div>
 </header>
@@ -116,6 +126,18 @@ footer { padding:28px 0; border-top:1px solid rgba(255,255,255,.08); color:#838A
         <article class="service"><div class="service-number">02 / CONVERSÃO</div><h3>Landing pages</h3><p>Páginas diretas para divulgar serviços, campanhas e facilitar o contato com potenciais clientes.</p></article>
         <article class="service"><div class="service-number">03 / IDENTIDADE</div><h3>Portfólios digitais</h3><p>Uma vitrine online organizada para profissionais criativos mostrarem seus trabalhos e sua experiência.</p></article>
       </div>
+    </div>
+  </section>
+  <section id="planos">
+    <div class="container">
+      <div class="section-head"><div><div class="eyebrow">Investimento transparente</div><h2>Planos para começar.</h2></div><p>Opções acessíveis para pequenos negócios e profissionais. O escopo é combinado antes do início do projeto.</p></div>
+      <div class="pricing">
+        <article class="price-card"><div class="service-number">PARA COMEÇAR</div><h3>Essencial</h3><div class="price">R$ 249</div><p>Uma página profissional para apresentar seu negócio e facilitar o contato.</p><ul><li>Landing page de até 5 seções</li><li>Layout responsivo</li><li>Botão de WhatsApp</li><li>Publicação em endereço gratuito</li><li>1 rodada de ajustes</li><li>Prazo estimado: 3 a 5 dias úteis</li></ul><a class="button button-outline" href="https://wa.me/554198883968?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20Plano%20Essencial%20da%20Prisma." target="_blank" rel="noopener">Escolher Essencial ↗</a></article>
+        <article class="price-card featured"><div class="service-number">MAIS COMPLETO</div><h3>Profissional</h3><div class="price">R$ 449</div><p>Mais espaço para apresentar seus serviços, sua empresa e seus diferenciais.</p><ul><li>Até 5 páginas</li><li>Design personalizado</li><li>Layout responsivo</li><li>Botão de WhatsApp</li><li>Formulário de contato</li><li>2 rodadas de ajustes</li><li>Prazo estimado: 5 a 8 dias úteis</li></ul><a class="button button-light" href="https://wa.me/554198883968?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20Plano%20Profissional%20da%20Prisma." target="_blank" rel="noopener">Escolher Profissional ↗</a></article>
+        <article class="price-card"><div class="service-number">VITRINE COMPLETA</div><h3>Premium</h3><div class="price">R$ 699</div><p>Uma apresentação mais completa, com espaço para destacar imagens e trabalhos.</p><ul><li>Até 5 páginas</li><li>Design personalizado</li><li>Galeria de imagens</li><li>Formulário de contato</li><li>Botão de WhatsApp</li><li>3 rodadas de ajustes</li><li>Prazo estimado: 7 a 12 dias úteis</li></ul><a class="button button-outline" href="https://wa.me/554198883968?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20o%20Plano%20Premium%20da%20Prisma." target="_blank" rel="noopener">Escolher Premium ↗</a></article>
+      </div>
+      <div class="service" style="margin-top:16px;min-height:0"><div class="service-number">OPCIONAL</div><h3 style="margin:12px 0">Manutenção — R$ 59/mês</h3><p>Pequenas alterações de textos e imagens, atualização de informações de contato e até 1 hora de ajustes por mês. Contratação opcional.</p></div>
+      <p class="pricing-note">Os valores não incluem domínio próprio, hospedagem paga, loja virtual, sistemas com login ou integrações avançadas. Textos, imagens e logotipo devem ser fornecidos pelo cliente. Recursos adicionais podem ser orçados separadamente. Prazos começam após o recebimento do material e a aprovação do escopo.</p>
     </div>
   </section>
   <section id="projetos">
