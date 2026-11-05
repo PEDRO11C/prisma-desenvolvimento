@@ -424,6 +424,7 @@ document.getElementById("review-form").addEventListener("submit", async (event) 
 
     form.reset();
     selectedRating = 0;
+  <div><div class="eyebrow">Vamos tirar sua ideia do papel?</div><h2>Seu próximo projeto<br>começa com uma conversa.</h2><p
     updateStars();
     setStatus("review-status", "Avaliação enviada! Ela ficará visível após a aprovação da equipe da Prisma.");
   } catch (error) {
@@ -436,6 +437,30 @@ document.getElementById("review-form").addEventListener("submit", async (event) 
 });
 
 loadReviews();
+  // Máscara automática de telefone
+const phoneInput = document.getElementById("quote-contact");
+
+phoneInput.addEventListener("input", function () {
+  let numbers = this.value.replace(/\D/g, "").slice(0, 11);
+
+  if (numbers.length > 10) {
+    numbers = numbers.replace(
+      /^(\d{2})(\d{5})(\d{0,4}).*/,
+      "($1) $2-$3"
+    );
+  } else if (numbers.length > 6) {
+    numbers = numbers.replace(
+      /^(\d{2})(\d{4})(\d{0,4}).*/,
+      "($1) $2-$3"
+    );
+  } else if (numbers.length > 2) {
+    numbers = numbers.replace(/^(\d{2})(\d+)/, "($1) $2");
+  } else if (numbers.length > 0) {
+    numbers = numbers.replace(/^(\d*)/, "($1");
+  }
+
+  this.value = numbers;
+});
 </script>
 </body>
 </html>
