@@ -237,7 +237,7 @@ footer{padding:28px 0;border-top:1px solid rgba(255,255,255,.08);color:#838A95;f
  </div></section>
 
  <section id="contato"><div class="container"><div class="contact-panel">
-  <div><div class="eyebrow">Vamos tirar sua ideia do papel?</div><h2>Seu próximo projeto<br>começa com uma conversa.</h2><p>Conte um pouco sobre o que você precisa. Vamos entender o desafio e pensar em uma solução adequada ao seu momento.</p><p style="margin-top:16px"><a href="mailto:equipe.prismadev@gmail.com">equipe.prismadev@gmail.com</a></p></div>
+>Conte um pouco sobre o que você precisa. Vamos entender o desafio e pensar em uma solução adequada ao seu momento.</p><p style="margin-top:16px"><a href="mailto:equipe.prismadev@gmail.com">equipe.prismadev@gmail.com</a></p></div>
   <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-start"><a class="button button-light" href="https://wa.me/554198883968" target="_blank" rel="noopener">Conversar pelo WhatsApp <span aria-hidden="true">↗</span></a><a class="button button-outline" href="mailto:equipe.prismadev@gmail.com">Enviar e-mail <span aria-hidden="true">↗</span></a></div>
  </div></div></section>
 </main>
@@ -251,8 +251,7 @@ const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_cSwOhR7F5dgRVnIyU4Rg4w_Jkz04dOE
 const WHATSAPP_NUMBER = "554198883968";
 
 const apiHeaders = {
-  apikey: SUPABASE_PUBLISHABLE_KEY,
-  Authorization: `Bearer ${SUPABASE_PUBLISHABLE_KEY}`
+  apikey: SUPABASE_PUBLISHABLE_KEY
 };
 
 function setStatus(elementId, message, isError = false) {
