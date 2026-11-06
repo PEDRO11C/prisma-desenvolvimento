@@ -338,6 +338,14 @@ for insert to authenticated
 with check (
   created_by = auth.uid()
   and client_id = public.current_client_id()
+  and (
+    project_id is null
+    or exists (
+      select 1 from public.projects p
+      where p.id = project_id
+        and p.client_id = public.current_client_id()
+    )
+  )
 );
 create policy "tickets_team_manage" on public.support_tickets
 for all to authenticated
