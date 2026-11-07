@@ -13,5 +13,6 @@ O painel usa somente a publishable key. Nunca exponha a chave service_role.
 ## Módulos
 - **Avaliações:** moderação de avaliações com políticas RLS.
 - **Clientes:** cadastro, edição, exclusão e listagem em `public.clientes`, restritos a administradores via RLS.
+- **Projetos:** cadastro, edição, exclusão e listagem em `public.projetos`, vinculados a um cliente, com valor, serviço, datas, status e observações. O acesso é restrito a administradores via RLS; clientes com projetos vinculados não podem ser excluídos.
 - **Dashboard:** totais e últimas avaliações.
-- **Projetos, financeiro, mensagens, notificações e configurações:** ainda aguardam implementação e tabelas/regras RLS próprias.
+- **Financeiro, mensagens, notificações e configurações:** ainda aguardam implementação e tabelas/regras RLS próprias.
