@@ -1,6 +1,6 @@
 # Painel administrativo Prisma
 
-O painel integrado está em `painel.html` e inclui dashboard, navegação dos módulos e moderação das avaliações existentes em `public.avaliacoes`.
+O painel integrado está em `painel.html` e inclui dashboard, gerenciamento de clientes e moderação das avaliações existentes em `public.avaliacoes`.
 
 ## Ativar o acesso
 1. Crie o usuário administrador em Supabase > Authentication > Users.
@@ -11,4 +11,7 @@ O painel integrado está em `painel.html` e inclui dashboard, navegação dos m�
 O painel usa somente a publishable key. Nunca exponha a chave service_role.
 
 ## Módulos
-A moderação de avaliações é funcional quando a tabela e as políticas estiverem configuradas. Dashboard apresenta totais e últimas avaliações. Clientes, projetos, financeiro, mensagens, notificações e configurações já aparecem na navegação, mas aguardam tabelas e regras RLS próprias antes de manipular dados reais.
+- **Avaliações:** moderação de avaliações com políticas RLS.
+- **Clientes:** cadastro, edição, exclusão e listagem em `public.clientes`, restritos a administradores via RLS.
+- **Dashboard:** totais e últimas avaliações.
+- **Projetos, financeiro, mensagens, notificações e configurações:** ainda aguardam implementação e tabelas/regras RLS próprias.
