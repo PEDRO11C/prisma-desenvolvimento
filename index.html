@@ -261,24 +261,63 @@ function setStatus(elementId, message, isError = false) {
 }
 
 /* Formulário de orçamento: prepara a mensagem e abre o WhatsApp. */
-document.getElementById("quote-form").addEventListener("submit", (event) => {
+document.getElementById("quote-form").addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.currentTarget;
   if (!form.reportValidity()) return;
 
   const data = new FormData(form);
+  const lead = {
+    nome: data.get("nome").trim(),
+    negocio: data.get("negocio").trim(),
+    servico: data.get("servico"),
+    contato: data.get("contato").trim(),
+    detalhes: data.get("detalhes").trim() || null
+  };
   const message = [
     "Olá, Prisma! Gostaria de solicitar um orçamento.",
     "",
-    `Nome: ${data.get("nome").trim()}`,
-    `Tipo de negócio: ${data.get("negocio").trim()}`,
-    `Serviço desejado: ${data.get("servico")}`,
-    `Contato: ${data.get("contato").trim()}`,
-    data.get("detalhes").trim() ? `Detalhes: ${data.get("detalhes").trim()}` : ""
+    `Nome: ${lead.nome}`,
+    `Tipo de negócio: ${lead.negocio}`,
+    `Serviço desejado: ${lead.servico}`,
+    `Contato: ${lead.contato}`,
+    lead.detalhes ? `Detalhes: ${lead.detalhes}` : ""
   ].filter(Boolean).join("\n");
 
-  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
-  setStatus("quote-status", "O WhatsApp foi aberto com sua mensagem. Confira os dados e toque em enviar por lá.");
+  // Abre a janela no gesto do usuário para evitar bloqueio de pop-up.
+  const whatsappWindow = window.open("about:blank", "_blank");
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  setStatus("quote-status", "Registrando sua solicitação...");
+  try {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/mensagens`, {
+      method: "POST",
+      headers: {
+        ...apiHeaders,
+        "Content-Type": "application/json",
+        "Prefer": "return=minimal"
+      },
+      body: JSON.stringify(lead)
+    });
+    if (!response.ok) {
+      const details = await response.text();
+      throw new Error(details || "Não foi possível registrar a solicitação.");
+    }
+    if (whatsappWindow) {
+      whatsappWindow.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    } else {
+      window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    }
+    setStatus("Solicitação registrada! O WhatsApp foi aberto para você enviar a mensagem à Prisma.");
+    form.reset();
+  } catch (error) {
+    if (whatsappWindow) whatsappWindow.close();
+    setStatus("Não foi possível registrar automaticamente. O WhatsApp será aberto para você não perder o contato.", true);
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+    console.error("Erro ao registrar pedido:", error);
+  } finally {
+    submitButton.disabled = false;
+  }
 });
 
 /* Sistema de estrelas e envio de avaliações pendentes para o Supabase. */
