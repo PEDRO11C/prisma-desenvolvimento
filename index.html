@@ -284,11 +284,15 @@ document.getElementById("quote-form").addEventListener("submit", async (event) =
     lead.detalhes ? `Detalhes: ${lead.detalhes}` : ""
   ].filter(Boolean).join("\n");
 
-  // Abre a janela no gesto do usuário para evitar bloqueio de pop-up.
-  const whatsappWindow = window.open("about:blank", "_blank");
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
   const submitButton = form.querySelector('button[type="submit"]');
+
+  // Abre o WhatsApp imediatamente no clique, antes da chamada ao banco,
+  // evitando que o navegador bloqueie a abertura após o await do fetch.
+  const whatsappWindow = window.open(whatsappUrl, "_blank");
   submitButton.disabled = true;
-  setStatus("quote-status", "Registrando sua solicitação...");
+  setStatus("quote-status", "Abrindo o WhatsApp e registrando sua solicitação...");
+
   try {
     const response = await fetch(`${SUPABASE_URL}/rest/v1/mensagens`, {
       method: "POST",
@@ -299,22 +303,20 @@ document.getElementById("quote-form").addEventListener("submit", async (event) =
       },
       body: JSON.stringify(lead)
     });
+
     if (!response.ok) {
       const details = await response.text();
       throw new Error(details || "Não foi possível registrar a solicitação.");
     }
-    if (whatsappWindow) {
-      whatsappWindow.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    } else {
-      window.location.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    }
-    setStatus("Solicitação registrada! O WhatsApp foi aberto para você enviar a mensagem à Prisma.");
+
+    setStatus("Pedido registrado no painel. Confira o WhatsApp e toque em Enviar para concluir o contato.");
     form.reset();
   } catch (error) {
-    if (whatsappWindow) whatsappWindow.close();
-    setStatus("Não foi possível registrar automaticamente. O WhatsApp será aberto para você não perder o contato.", true);
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
     console.error("Erro ao registrar pedido:", error);
+    setStatus("O WhatsApp foi aberto, mas não conseguimos registrar o pedido no painel. Você ainda pode enviar a mensagem pelo WhatsApp.", true);
+    if (!whatsappWindow) {
+      setStatus("O navegador bloqueou a nova aba. Clique novamente e permita pop-ups para abrir o WhatsApp.", true);
+    }
   } finally {
     submitButton.disabled = false;
   }
